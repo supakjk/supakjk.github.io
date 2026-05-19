@@ -1,49 +1,492 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Joo-Kyung Kim's homepage</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Joo-Kyung Kim</title>
+	<meta name="description" content="Joo-Kyung Kim — Senior Applied Scientist at Amazon." />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--bg: #ffffff;
+			--bg-soft: #fafafa;
+			--border: #e6e6e6;
+			--text: #1a1a1a;
+			--text-soft: #555;
+			--text-mute: #888;
+			--accent: #6b4226;
+			--accent-soft: #faf5ef;
+			--chip-bg: #f3f4f6;
+			--chip-text: #374151;
+			--radius: 10px;
+			--max: 880px;
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--bg: #0f1115;
+				--bg-soft: #15181d;
+				--border: #2a2e36;
+				--text: #e7e9ee;
+				--text-soft: #b6bac3;
+				--text-mute: #8a8f9a;
+				--accent: #d4a574;
+				--accent-soft: #2a1f15;
+				--chip-bg: #1d2026;
+				--chip-text: #c9ccd3;
+			}
+		}
+		* { box-sizing: border-box; }
+		html, body {
+			margin: 0;
+			padding: 0;
+			background: var(--bg);
+			color: var(--text);
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+			font-size: 16px;
+			line-height: 1.65;
+			-webkit-font-smoothing: antialiased;
+		}
+		a {
+			color: var(--accent);
+			text-decoration: none;
+			border-bottom: 1px solid transparent;
+			transition: border-color 0.15s ease;
+		}
+		a:hover { border-bottom-color: var(--accent); }
+		.wrap {
+			max-width: var(--max);
+			margin: 0 auto;
+			padding: 56px 24px 96px;
+		}
+		header.hero {
+			display: grid;
+			grid-template-columns: 180px 1fr;
+			gap: 36px;
+			align-items: start;
+			margin-bottom: 40px;
+		}
+		.hero img {
+			width: 180px;
+			height: 180px;
+			object-fit: cover;
+			object-position: 5% center;
+			border-radius: 50%;
+			border: 1px solid var(--border);
+		}
+		.hero h1 {
+			margin: 0 0 6px;
+			font-size: 30px;
+			font-weight: 700;
+			letter-spacing: -0.01em;
+		}
+		.hero h1 .nickname {
+			color: var(--text-mute);
+			font-weight: 500;
+			font-size: 22px;
+			margin-left: 4px;
+		}
+		.hero .role {
+			color: var(--text-soft);
+			font-size: 15.5px;
+			margin: 0 0 14px;
+		}
+		.hero .role strong { color: var(--text); font-weight: 600; }
+		.links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 14px;
+		}
+		.links a {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 5px 11px;
+			background: var(--chip-bg);
+			color: var(--chip-text);
+			border-radius: 999px;
+			font-size: 13.5px;
+			border: 1px solid transparent;
+		}
+		.links a:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+		section { margin-top: 44px; }
+		section h2 {
+			font-size: 13px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			color: var(--text-mute);
+			margin: 0 0 16px;
+			padding-bottom: 8px;
+			border-bottom: 1px solid var(--border);
+		}
+		.bio p {
+			margin: 0 0 12px;
+			color: var(--text-soft);
+		}
+		.bio p strong { color: var(--text); font-weight: 600; }
+
+		.tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px;
+			margin-top: 12px;
+		}
+		.tag {
+			font-size: 12.5px;
+			padding: 3px 10px;
+			background: var(--accent-soft);
+			color: var(--accent);
+			border-radius: 999px;
+			font-weight: 500;
+		}
+
+		.news-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			max-height: 340px;
+			overflow-y: auto;
+			padding-right: 6px;
+		}
+		.news-list li {
+			display: grid;
+			grid-template-columns: 92px 1fr;
+			gap: 16px;
+			padding: 9px 0;
+			border-bottom: 1px dashed var(--border);
+			font-size: 14.5px;
+		}
+		.news-list li:last-child { border-bottom: none; }
+		.news-date {
+			color: var(--text-mute);
+			font-family: 'JetBrains Mono', ui-monospace, monospace;
+			font-size: 12.5px;
+			padding-top: 2px;
+		}
+		.news-body { color: var(--text-soft); }
+		.news-body strong { color: var(--text); font-weight: 600; }
+
+		.year-header {
+			font-family: 'JetBrains Mono', ui-monospace, monospace;
+			font-size: 13px;
+			color: var(--text-mute);
+			margin: 26px 0 10px;
+			letter-spacing: 0.04em;
+		}
+		.pub {
+			padding: 14px 0;
+			border-bottom: 1px solid var(--border);
+		}
+		.pub:last-child { border-bottom: none; }
+		.pub-title {
+			font-size: 15.5px;
+			font-weight: 600;
+			color: var(--text);
+			margin: 0 0 4px;
+			line-height: 1.45;
+		}
+		.pub-authors {
+			font-size: 14px;
+			color: var(--text-soft);
+			margin: 0 0 4px;
+		}
+		.pub-authors .me { color: var(--text); font-weight: 600; }
+		.pub-meta {
+			font-size: 13px;
+			color: var(--text-mute);
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin: 0;
+		}
+		.venue {
+			font-style: italic;
+			color: var(--text-soft);
+		}
+		.badge {
+			display: inline-block;
+			font-size: 11px;
+			padding: 1px 8px;
+			border-radius: 4px;
+			background: var(--chip-bg);
+			color: var(--chip-text);
+			font-weight: 500;
+			letter-spacing: 0.02em;
+		}
+		.pub-links a {
+			font-size: 12.5px;
+			margin-right: 10px;
+		}
+		.experience-list, .service-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.experience-list li, .service-list li {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 12px;
+			padding: 10px 0;
+			color: var(--text-soft);
+			font-size: 14.5px;
+			border-bottom: 1px dashed var(--border);
+		}
+		.experience-list li:last-child, .service-list li:last-child { border-bottom: none; }
+		.experience-list strong, .service-list strong { color: var(--text); font-weight: 600; }
+		.experience-list strong a {
+			color: inherit;
+			border-bottom: 1px solid transparent;
+		}
+		.experience-list strong a:hover {
+			color: var(--accent);
+			border-bottom-color: var(--accent);
+		}
+		.exp-role {
+			display: block;
+			color: var(--text-soft);
+			font-size: 13.5px;
+			margin-top: 1px;
+		}
+		.exp-date {
+			color: var(--text-mute);
+			font-family: 'JetBrains Mono', ui-monospace, monospace;
+			font-size: 12.5px;
+			white-space: nowrap;
+			padding-top: 2px;
+		}
+
+		footer {
+			margin-top: 56px;
+			padding-top: 20px;
+			border-top: 1px solid var(--border);
+			color: var(--text-mute);
+			font-size: 12.5px;
+			text-align: center;
+		}
+
+		@media (max-width: 640px) {
+			.wrap { padding: 32px 18px 64px; }
+			header.hero {
+				grid-template-columns: 1fr;
+				gap: 20px;
+				text-align: center;
+			}
+			.hero img { width: 140px; height: 140px; margin: 0 auto; }
+			.links { justify-content: center; }
+			.tags { justify-content: center; }
+			.news-list li {
+				grid-template-columns: 1fr;
+				gap: 2px;
+			}
+			.experience-list li, .service-list li {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
 </head>
 <body>
-	<h3><b>Joo-Kyung Kim</b></h3>
-	<img src="jkkim_2017.jpg" width=300></img><br><br>
-	Email: jookyk at amazon.com | <a href="https://www.linkedin.com/in/joo-kyung-kim-019b5733/">LinkedIn</a> | <a href="jkkim_resume.pdf">Resume</a><br>
-	<br>
-	I am a senior applied scientist at Amazon. You can just call me JK.<br>
-	My current major research interests are conversational AI with large language models, agentic/multi-turn LLM post-training, LLM evaluation, and multi-hop reasoning.<br>
-	At Amazon, I have been building core LLM components for Alexa, specializing in post-training, multi-turn/proactive interaction, personalization, and large-scale NLU, shipping high-impact systems serving hundreds of millions of users.<br>
-	I received my PhD degree advised by <a href="http://web.cse.ohio-state.edu/~fosler-lussier.1/">Eric Fosler-Lussier</a> in the <a href="http://www.cse.ohio-state.edu">Department of Computer Science and Engineering</a> at <a href="http://www.osu.edu">The Ohio State University</a>.<br>
-	During my PhD, I did three research internships on deep learning for conversational understanding at <a href="https://www.microsoft.com/en-us/research/project/deepcu-deep-learning-conversational-understanding-2/">Microsoft</a> in summer 2016, deep & recursive neural networks for constituency parsing at <a href="http://www.nec-labs.com/research-departments/machine-learning/machine-learning-home">NEC Laboratories America</a> in summer 2015, and deep & recurrent neural networks for named entity recognition at <a href="http://nuance.com">Nuance</a> Sunnyvale in summer 2014.<br>
-	Between 2012 and 2014, I worked on hierarchical compositions of acoustic features and multiple target labels from various languages with deep neural networks for <a href="http://www.iarpa.gov/index.php/research-programs/babel">IARPA's Babel Program</a>.<br>
-	I received my MS degree advised by <a href="https://bi.snu.ac.kr/~btzhang/">Byoung-Tak Zhang</a> from <a href="http://www.useoul.edu/">Seoul National University</a> and my BE degree from <a href="http://www.sogang.ac.kr/english/">Sogang University</a>.<br>
-	Before OSU, I worked at <a href="http://www.navercorp.com/en/index.nhn">Naver</a> for two years as a software engineer (manager) developing Internet search services. Also as alternative military services, I developed mobile games at ZIO Interactive and financial risk management software at <a href="http://www.ibksystem.co.kr/english/main.ibk">IBK System</a>.<br>
-<br>
-<b>Selected Publications</b><br>
-Jinyoung Park, Sanghyeok Lee, Omar Zia Khan, Hyunwoo J. Kim, <b>Joo-Kyung Kim</b>, "HyperGraphPro: Progress-Aware Reinforcement Learning for Structure-Guided Hypergraph RAG," <i>arXiv:2601.17755</i>, 2026. [<a href="https://arxiv.org/abs/2601.17755">PDF</a>] <br>
-Soyeong Jeong, Taehee Jung, Sung Ju Hwang, <b>Joo-Kyung Kim</b>, Dongyeop Kang, "When Thoughts Meet Facts: Reusable Reasoning for Long-Context LMs," <i>ACL Finding</i>, 2026. [<a href="https://arxiv.org/abs/2510.07499">PDF</a>] <br>
-Qiusi Zhan, Angeline Budiman-Chan, Abdelrahman Zayed, Xingzhi Guo, Daniel Kang, and <b>Joo-Kyung Kim</b>, "SafeSearch: Do Not Trade Safety for Utility in LLM Search Agents," <i>EACL Findings</i>, 2026. [<a href="https://arxiv.org/abs/2510.17017">PDF</a>] <br>
-Zae Myung Kim, Anand Ramachandran, Farideh Tavazoee, <b>Joo-Kyung Kim</b>, Oleg Rokhlenko, Dongyeop Kang, "Align to Structure: Aligning Large Language Models with Structural Information," <i>AAAI</i>, 2026. [<a href="https://arxiv.org/abs/2504.03622">PDF</a>] <br>
-Chanwoo Park, Seungju Han, Xingzhi Guo, Asuman Ozdaglar, Kaiqing Zhang, <b>Joo-Kyung Kim</b>, "MAPoRL: Multi-Agent Post-Co-Training for Collaborative Large Language Models with Reinforcement Learning," <i>ACL</i>, 2025. [<a href="https://arxiv.org/abs/2502.18439">PDF</a>] <br>
-Shirley Anugrah Hayati, Taehee Jung, Tristan Bodding-Long, Sudipta Kar, Abhinav Sethy, <b>Joo-Kyung Kim</b>, Dongyeop Kang, “Chain-of-Instructions: Compositional Instruction Tuning on Large Language Models," <i>AAAI</i>, 2025. [<a href="https://arxiv.org/abs/2402.11532">PDF</a>] <br>
-Jinyoung Park, Minseok Joo, <b>Joo-Kyung Kim</b>, Hyunwoo J. Kim, "Generative Subgraph Retrieval for Knowledge Graph–Grounded Dialog Generation," <i>EMNLP</i>, pp. 21167–21182, 2024. [<a href="https://arxiv.org/abs/2410.09350">PDF</a>] <br>
-Jihyung Kil, Farideh Tavazoee, Dongyeop Kang, <b>Joo-Kyung Kim</b>, “II-MMR: Identifying and Improving Multi-modal Multi-hop Reasoning in Visual Question Answering,” <i>ACL Findings</i>, 2024. [<a href="https://arxiv.org/abs/2402.11058">PDF</a>] <br>
-Jinyoung Park, Ameen Patel, Omar Zia Khan, Hyunwoo J. Kim, <b>Joo-Kyung Kim</b>, "Graph Elicitation for Guiding Multi-Step Reasoning in Large Language Models," <i>arXiv:2311.09762</i>, 2023. [<a href="https://arxiv.org/abs/2311.09762">PDF</a>] <br>
-Taehee Jung, <b>Joo-Kyung Kim</b>, Sungjin Lee, and Dongyeop Kang, "Cluster-Guided Label Generation in Extreme Multi-Label Classification," <i>EACL</i>, pp. 1670-1685, 2023. [<a href="https://arxiv.org/abs/2302.09150">PDF</a>] <br>
-<b>Joo-Kyung Kim</b>, Guoyin Wang, Sungjin Lee, and Young-Bum Kim, "Deciding Whether to Ask Clarifying Questions in Large-Scale Spoken Language Understanding," <i>ASRU</i>, 2021. [<a href="https://arxiv.org/abs/2109.12451">PDF</a>] <br>
-<b>Joo-Kyung Kim</b> and Young-Bum Kim, "Pseudo Labeling and Negative Feedback Learning for Large-scale Multi-label Domain Classification," <i>ICASSP</i>, pp. 7964-7968, 2020. [<a href="https://arxiv.org/abs/2003.03728">PDF</a>] <br>
-<b>Joo-Kyung Kim</b> and Young-Bum Kim, "Supervised Domain Enablement Attention for Personalized Domain Classification," <i>EMNLP</i>, pp. 894-899, 2018. [<a href="http://aclweb.org/anthology/D18-1106">PDF</a>] <br>
-<b>Joo-Kyung Kim</b> and Young-Bum Kim, "Joint Learning of Domain Classification and Out-of-Domain Detection with Dynamic Class Weighting for Satisficing False Acceptance Rates," <i>Interspeech</i>, pp. 556-560, 2018. [<a href="https://www.isca-speech.org/archive/pdfs/interspeech_2018/kim18c_interspeech.pdf">PDF</a>]<br>
-Young-Bum Kim, Dongchan Kim, <b>Joo-Kyung Kim</b>, and Ruhi Sarikaya, "A Scalable Neural Shortlisting-Reranking Approach for Large-Scale Domain Classification in Natural Language Understanding," <i>NAACL</i>, pp. 16-24, 2018. [<a href="http://aclweb.org/anthology/N18-3003">PDF</a>]<br>
-<b>Joo-Kyung Kim</b>, <i>Linguistic Knowledge Transfer for Enriching Vector Representations</i>, PhD Dissertation, The Ohio State University, 2017. [<a href="https://etd.ohiolink.edu/!etd.send_file?accession=osu1500571436042414&disposition=inline">PDF</a>]<br>
-<b>Joo-Kyung Kim</b>, Young-Bum Kim, Ruhi Sarikaya, and Eric Fosler-Lussier, "Cross-Lingual Transfer Learning for POS Tagging without Cross-Lingual Resources," <i>EMNLP</i>, pp. 2822-2828, 2017. [<a href="http://aclweb.org/anthology/D17-1302">PDF</a>] [<a href="https://github.com/OSU-slatelab/seq_tagger">Code</a>]<br>
-<b>Joo-Kyung Kim</b>, Gokhan Tur, Asli Celikyilmaz, Bin Cao, and Ye-Yi Wang, "Intent Detection using Semantically Enriched Word Embeddings," <i>IEEE Workshop on Spoken Language Technology (SLT)</i>, pp. 414-419, 2016. [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7846297">PDF</a>]<br>
-<b>Joo-Kyung Kim</b>, Marie-Catherine de Marneffe, and Eric Fosler-Lussier, "Adjusting Word Embeddings with Semantic Intensity Orders," <i>ACL 2016 Workshop on Representation Learning for NLP (RepL4NLP)</i>, pp. 62-69, 2016. [<a href="http://aclweb.org/anthology/W/W16/W16-1607.pdf">PDF</a>] [<a href="https://drive.google.com/drive/folders/13iJJuO6KDCTbEe4J-LSGJetpjiYOjL6G">Word vector files</a>]<br>
-<b>Joo-Kyung Kim</b>, Marie-Catherine de Marneffe, and Eric Fosler-Lussier, "Neural word embeddings with multiplicative feature interactions for tensor-based compositions," <i>NAACL 2015 Workshop on Vector Space Modeling for NLP (VSM)</i>, pp. 143-150, 2015. [<a href="https://aclweb.org/anthology/W/W15/W15-1520.pdf">PDF</a>]<br>
-<b>Joo-Kyung Kim</b> and Marie-Catherine de Marneffe, "Deriving adjectival scales from continuous space word representations," <i>EMNLP</i>, pp. 1625-1630, 2013. [<a href="http://aclweb.org/anthology/D/D13/D13-1169.pdf">PDF</a>]<br>
-<!-- <b>Joo-Kyung Kim</b>, "Evolutionary optimization of a collection of variable-length subpatterns for pattern classification," Master's thesis, School of Computer Science and Engineering, Seoul National University, August, 2008. (in Korean)<br> -->
-<!-- Oh-Hyuk Kwon, <b>Joo-Kyung Kim</b>, Jung-Woo Ha, Jaehyun Park, Duck-Jin Chung, and Chong-Ho Lee, "DNA Inspired CVD Diagnostic Hardware Architecture," Transactions of the Korean Institute of Electrical Engineers, vol. 57:2-26, pp. 320-326, 2008. (in Korean)<br> -->
-<b>Joo-Kyung Kim</b> and Byoung-Tak Zhang, "Evolving hypernetworks for pattern classification," <i>IEEE Congress on Evolutionary Computation (CEC)</i>, pp. 1856-1862, 2007.<br>
-<b>Joo-Kyung Kim</b>, Byung Soo Kim, Oh Hyuk Kwon, Seung Kon Hwang, Jung-Woo Ha, Chan-Hoon Park, Duck Jin Chung, Chong Ho Lee, Jaehyun Park, and Byoung-Tak Zhang, "A DNA computing-inspired silicon chip for pattern recognition," <i>13th International Meeting on DNA Computing (DNA)</i>, 2007.<br>
-Byoung-Tak Zhang and <b>Joo-Kyung Kim</b>, "DNA hypernetworks for information storage and retrieval," <i>12th International Meeting on DNA Computing (DNA)</i>, pp. 298-307, 2006.<br>
-<!-- <b>Joo-Kyung Kim</b> and Byoung-Tak Zhang, "Analysis of subsampling effects in pattern completion by hypernetwork learning based on probabilistic library model," <i>Korea Computer Congress</i> 2006, vol. 33 1(B), pp. 352-354, 2006. (in Korean)<br> -->
-<!-- <b>Joo-Kyung Kim</b> and Byoung-Tak Zhang, "Molecular Computational Methods for Pattern Completion," <i>2nd Joint Symposium on Computational Intelligence</i>, vol. 2, pp. 206-209, 2006. (in Korean) -->
+	<div class="wrap">
+		<header class="hero">
+			<img src="jkkim_2017.jpg" alt="Joo-Kyung Kim" />
+			<div>
+				<h1>Joo-Kyung Kim <span class="nickname">(JK)</span></h1>
+				<p class="role"><strong>Senior Applied Scientist</strong> · Amazon · Bellevue, WA</p>
+				<div class="links">
+					<a href="mailto:jookyk@amazon.com">jookyk@amazon.com</a>
+					<a href="https://scholar.google.com/citations?user=SeRGQv4AAAAJ">Google Scholar</a>
+					<a href="https://www.linkedin.com/in/joo-kyung-kim-019b5733/">LinkedIn</a>
+					<a href="jkkim_resume.pdf">CV</a>
+				</div>
+			</div>
+		</header>
+
+		<section>
+			<h2>About</h2>
+			<div class="bio">
+				<p>
+					I am a Senior Applied Scientist at Amazon Alexa AI, where I build core LLM components powering Alexa for hundreds of millions of users. My current work focuses on <strong>LLM post-training</strong> for <strong>multi-turn/proactive interactions</strong>, <strong>personalization</strong>, and <strong>evaluation/reward modeling</strong>.
+				</p>
+				<p>
+					More broadly, my research interests include <strong>conversational AI</strong>, <strong>agentic LLM post-training</strong>, <strong>LLM safety alignment</strong>, and <strong>multi-agent reinforcement learning</strong>.
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2>Selected Publications</h2>
+
+			<div class="year-header">2026</div>
+
+			<div class="pub">
+				<p class="pub-title">HyperGraphPro: Progress-Aware Reinforcement Learning for Structure-Guided Hypergraph RAG</p>
+				<p class="pub-authors">Jinyoung Park, Sanghyeok Lee, Omar Zia Khan, Hyunwoo J. Kim, <span class="me">Joo-Kyung Kim</span></p>
+				<p class="pub-meta"><span class="venue">arXiv:2601.17755</span> <span class="badge">Preprint</span> <span class="pub-links"><a href="https://arxiv.org/abs/2601.17755">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">When Thoughts Meet Facts: Reusable Reasoning for Long-Context LMs</p>
+				<p class="pub-authors">Soyeong Jeong, Taehee Jung, Sung Ju Hwang, <span class="me">Joo-Kyung Kim</span>, Dongyeop Kang</p>
+				<p class="pub-meta"><span class="venue">ACL Findings</span> <span class="pub-links"><a href="https://arxiv.org/abs/2510.07499">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">SafeSearch: Do Not Trade Safety for Utility in LLM Search Agents</p>
+				<p class="pub-authors">Qiusi Zhan, Angeline Budiman-Chan, Abdelrahman Zayed, Xingzhi Guo, Daniel Kang, <span class="me">Joo-Kyung Kim</span></p>
+				<p class="pub-meta"><span class="venue">EACL Findings</span> <span class="pub-links"><a href="https://arxiv.org/abs/2510.17017">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Align to Structure: Aligning Large Language Models with Structural Information</p>
+				<p class="pub-authors">Zae Myung Kim, Anand Ramachandran, Farideh Tavazoee, <span class="me">Joo-Kyung Kim</span>, Oleg Rokhlenko, Dongyeop Kang</p>
+				<p class="pub-meta"><span class="venue">AAAI</span> <span class="pub-links"><a href="https://arxiv.org/abs/2504.03622">PDF</a></span></p>
+			</div>
+
+			<div class="year-header">2025</div>
+
+			<div class="pub">
+				<p class="pub-title">MAPoRL: Multi-Agent Post-Co-Training for Collaborative Large Language Models with Reinforcement Learning</p>
+				<p class="pub-authors">Chanwoo Park, Seungju Han, Xingzhi Guo, Asuman Ozdaglar, Kaiqing Zhang, <span class="me">Joo-Kyung Kim</span></p>
+				<p class="pub-meta"><span class="venue">ACL</span> <span class="pub-links"><a href="https://arxiv.org/abs/2502.18439">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Chain-of-Instructions: Compositional Instruction Tuning on Large Language Models</p>
+				<p class="pub-authors">Shirley Anugrah Hayati, Taehee Jung, Tristan Bodding-Long, Sudipta Kar, Abhinav Sethy, <span class="me">Joo-Kyung Kim</span>, Dongyeop Kang</p>
+				<p class="pub-meta"><span class="venue">AAAI</span> <span class="pub-links"><a href="https://arxiv.org/abs/2402.11532">PDF</a></span></p>
+			</div>
+
+			<div class="year-header">2024</div>
+
+			<div class="pub">
+				<p class="pub-title">Generative Subgraph Retrieval for Knowledge Graph–Grounded Dialog Generation</p>
+				<p class="pub-authors">Jinyoung Park, Minseok Joo, <span class="me">Joo-Kyung Kim</span>, Hyunwoo J. Kim</p>
+				<p class="pub-meta"><span class="venue">EMNLP</span> <span class="pub-links"><a href="https://arxiv.org/abs/2410.09350">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">II-MMR: Identifying and Improving Multi-modal Multi-hop Reasoning in Visual Question Answering</p>
+				<p class="pub-authors">Jihyung Kil, Farideh Tavazoee, Dongyeop Kang, <span class="me">Joo-Kyung Kim</span></p>
+				<p class="pub-meta"><span class="venue">ACL Findings</span> <span class="pub-links"><a href="https://arxiv.org/abs/2402.11058">PDF</a></span></p>
+			</div>
+
+			<div class="year-header">2023</div>
+
+			<div class="pub">
+				<p class="pub-title">Graph Elicitation for Guiding Multi-Step Reasoning in Large Language Models</p>
+				<p class="pub-authors">Jinyoung Park, Ameen Patel, Omar Zia Khan, Hyunwoo J. Kim, <span class="me">Joo-Kyung Kim</span></p>
+				<p class="pub-meta"><span class="venue">arXiv:2311.09762</span> <span class="badge">Preprint</span> <span class="pub-links"><a href="https://arxiv.org/abs/2311.09762">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Cluster-Guided Label Generation in Extreme Multi-Label Classification</p>
+				<p class="pub-authors">Taehee Jung, <span class="me">Joo-Kyung Kim</span>, Sungjin Lee, Dongyeop Kang</p>
+				<p class="pub-meta"><span class="venue">EACL</span> <span class="pub-links"><a href="https://arxiv.org/abs/2302.09150">PDF</a></span></p>
+			</div>
+
+			<div class="year-header">2018 — 2021</div>
+
+			<div class="pub">
+				<p class="pub-title">Deciding Whether to Ask Clarifying Questions in Large-Scale Spoken Language Understanding</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Guoyin Wang, Sungjin Lee, Young-Bum Kim</p>
+				<p class="pub-meta"><span class="venue">ASRU 2021</span> <span class="pub-links"><a href="https://arxiv.org/abs/2109.12451">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Pseudo Labeling and Negative Feedback Learning for Large-scale Multi-label Domain Classification</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Young-Bum Kim</p>
+				<p class="pub-meta"><span class="venue">ICASSP 2020</span> <span class="pub-links"><a href="https://arxiv.org/abs/2003.03728">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Supervised Domain Enablement Attention for Personalized Domain Classification</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Young-Bum Kim</p>
+				<p class="pub-meta"><span class="venue">EMNLP 2018</span> <span class="pub-links"><a href="http://aclweb.org/anthology/D18-1106">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Joint Learning of Domain Classification and Out-of-Domain Detection with Dynamic Class Weighting for Satisficing False Acceptance Rates</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Young-Bum Kim</p>
+				<p class="pub-meta"><span class="venue">Interspeech 2018</span> <span class="pub-links"><a href="https://www.isca-speech.org/archive/pdfs/interspeech_2018/kim18c_interspeech.pdf">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">A Scalable Neural Shortlisting-Reranking Approach for Large-Scale Domain Classification in Natural Language Understanding</p>
+				<p class="pub-authors">Young-Bum Kim, Dongchan Kim, <span class="me">Joo-Kyung Kim</span>, Ruhi Sarikaya</p>
+				<p class="pub-meta"><span class="venue">NAACL 2018</span> <span class="pub-links"><a href="http://aclweb.org/anthology/N18-3003">PDF</a></span></p>
+			</div>
+
+			<div class="year-header">Earlier</div>
+
+			<div class="pub">
+				<p class="pub-title">Cross-Lingual Transfer Learning for POS Tagging without Cross-Lingual Resources</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Young-Bum Kim, Ruhi Sarikaya, Eric Fosler-Lussier</p>
+				<p class="pub-meta"><span class="venue">EMNLP 2017</span> <span class="pub-links"><a href="http://aclweb.org/anthology/D17-1302">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Intent Detection using Semantically Enriched Word Embeddings</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Gokhan Tur, Asli Celikyilmaz, Bin Cao, Ye-Yi Wang</p>
+				<p class="pub-meta"><span class="venue">IEEE SLT 2016</span> <span class="pub-links"><a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7846297">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Adjusting Word Embeddings with Semantic Intensity Orders</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Marie-Catherine de Marneffe, Eric Fosler-Lussier</p>
+				<p class="pub-meta"><span class="venue">ACL 2016 Workshop on RepL4NLP</span> <span class="pub-links"><a href="http://aclweb.org/anthology/W/W16/W16-1607.pdf">PDF</a> <a href="https://drive.google.com/drive/folders/13iJJuO6KDCTbEe4J-LSGJetpjiYOjL6G">Vectors</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Neural word embeddings with multiplicative feature interactions for tensor-based compositions</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Marie-Catherine de Marneffe, Eric Fosler-Lussier</p>
+				<p class="pub-meta"><span class="venue">NAACL 2015 Workshop on VSM</span> <span class="pub-links"><a href="https://aclweb.org/anthology/W/W15/W15-1520.pdf">PDF</a></span></p>
+			</div>
+
+			<div class="pub">
+				<p class="pub-title">Deriving adjectival scales from continuous space word representations</p>
+				<p class="pub-authors"><span class="me">Joo-Kyung Kim</span>, Marie-Catherine de Marneffe</p>
+				<p class="pub-meta"><span class="venue">EMNLP 2013</span> <span class="pub-links"><a href="http://aclweb.org/anthology/D/D13/D13-1169.pdf">PDF</a></span></p>
+			</div>
+		</section>
+
+		<section>
+			<h2>Experience</h2>
+			<ul class="experience-list">
+				<li><span><strong>Amazon</strong><span class="exp-role">Senior Applied Scientist · Alexa AI</span></span><span class="exp-date">2017 – Present</span></li>
+				<li><span><strong>Microsoft</strong><span class="exp-role">Research Intern · Conversational Understanding</span></span><span class="exp-date">Summer 2016</span></li>
+				<li><span><strong>NEC Labs America</strong><span class="exp-role">Research Associate · Constituency Parsing</span></span><span class="exp-date">Summer 2015</span></li>
+				<li><span><strong>Nuance</strong><span class="exp-role">Research Intern · Named Entity Recognition</span></span><span class="exp-date">Summer 2014</span></li>
+				<li><span><strong>Naver</strong><span class="exp-role">Manager · Web Search & Modeling</span></span><span class="exp-date">2008 – 2010</span></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Education</h2>
+			<ul class="experience-list">
+				<li><span><strong><a href="http://www.osu.edu">The Ohio State University</a></strong><span class="exp-role">PhD, Computer Science &amp; Engineering · Advisor: <a href="https://efosler.github.io/">Eric Fosler-Lussier</a></span></span><span class="exp-date">2017</span></li>
+				<li><span><strong><a href="http://www.useoul.edu/">Seoul National University</a></strong><span class="exp-role">MS, Computer Science &amp; Engineering · Advisor: <a href="https://bi.snu.ac.kr/~btzhang/">Byoung-Tak Zhang</a></span></span><span class="exp-date">2008</span></li>
+				<li><span><strong><a href="http://www.sogang.ac.kr/english/">Sogang University</a></strong><span class="exp-role">BE, Computer Science</span></span><span class="exp-date">2005</span></li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Academic Service</h2>
+			<ul class="service-list">
+				<li><span><strong>Senior Area Chair</strong> — ACL 2026, EMNLP 2025 &amp; 2026, ARR 2025–2026</span></li>
+				<li><span><strong>Area Chair</strong> — ARR Dec 2023 – Feb 2025</span></li>
+				<li><span><strong>Reviewer</strong> — ACL, EMNLP, NAACL, EACL, AACL, AAAI, IEEE TASLP</span></li>
+			</ul>
+		</section>
+
+		<footer>
+			Last updated May 2026 · Built with plain HTML &amp; CSS.
+		</footer>
+	</div>
 </body>
 </html>
